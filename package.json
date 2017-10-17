@@ -1,0 +1,84 @@
+{
+  "name": "cassandra-boilerplate",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npm run build && npm run watch",
+    "build": "npm run build-ts",
+    "serve": "nodemon dist/index.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve\"",
+    "test": "jest",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "debug": "npm run build && npm run watch-debug",
+    "serve-debug": "nodemon --inspect dist/server.js",
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""
+  },
+  "license": "MIT",
+  "jest": {
+    "globals": {
+      "__TS_CONFIG__": "tsconfig.json"
+    },
+    "notify":true,
+    "modulePathIgnorePatterns": ["./dist"],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
+    },
+    "testMatch": [
+      "**/__test__/**/*.spec.ts"
+    ],
+    "testEnvironment": "node" 
+  },
+  "dependencies": {
+    "async": "^2.1.2",
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "connect-mongo": "^1.3.2",
+    "dotenv": "^4.0.0",
+    "errorhandler": "^1.4.3",
+    "express": "^4.14.0",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.14.2",
+    "express-validator": "^4.2.1",
+    "fbgraph": "^1.3.0",
+    "lodash": "^4.17.4",
+    "lusca": "^1.4.1",
+    "morgan": "^1.7.0",
+    "nodemailer": "^4.1.3",
+    "pug": "^2.0.0-beta6",
+    "request": "^2.78.0",
+    "cassandra-driver": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/async": "^2.0.40",
+    "@types/bcrypt-nodejs": "0.0.30",
+    "@types/body-parser": "^1.16.2",
+    "@types/cassandra-driver": "^3.2.1",
+    "@types/compression": "0.0.34",
+    "@types/dotenv": "^4.0.1",
+    "@types/errorhandler": "0.0.31",
+    "@types/express": "^4.0.35",
+    "@types/express-session": "1.15.3",
+    "@types/jest": "^21.1.2",
+    "@types/jquery": "^3.2.13",
+    "@types/lodash": "^4.14.63",
+    "@types/morgan": "^1.7.32",
+    "@types/node": "^8.0.32",
+    "@types/nodemailer": "^3.1.3",
+    "@types/request": "2.0.4",
+    "@types/supertest": "^2.0.0",
+    "concurrently": "^3.4.0",
+    "jest": "^21.2.1",
+    "nodemon": "^1.11.0",
+    "shelljs": "^0.7.7",
+    "supertest": "^3.0.0",
+    "ts-jest": "^21.1.0",
+    "tslint": "^5.0.0",
+    "typescript": "^2.5.3"
+  }
+}

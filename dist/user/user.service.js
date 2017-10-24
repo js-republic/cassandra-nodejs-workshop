@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_da_1 = require("./user.da");
+const user_db_model_1 = require("./user.db.model");
 const user_model_1 = require("./user.model");
 function getAllUsers() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -17,4 +18,12 @@ function getAllUsers() {
     });
 }
 exports.getAllUsers = getAllUsers;
+function addUser(userToAdd) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const userToAddDB = user_db_model_1.mapToUserDB(null, userToAdd.username, userToAdd.password);
+        const userId = yield user_da_1.insertUser(userToAddDB);
+        return userId;
+    });
+}
+exports.addUser = addUser;
 //# sourceMappingURL=user.service.js.map

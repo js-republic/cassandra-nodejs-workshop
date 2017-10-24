@@ -1,6 +1,6 @@
 
-import { getAllUsers } from './user/user.service';
-import { mapToUser } from './user/user.model';
+import { getAllUsers, addUser } from './user/user.service';
+import { mapToUser, User } from './user/user.model';
 
 import * as express from 'express';
 import * as util from 'util';
@@ -29,6 +29,15 @@ router.get('/users', (req: express.Request, res: express.Response) => {
     getAllUsers().then((users) => 
         res.json({
             users: users
+        })
+    );
+});
+
+router.post('/user', (req: express.Request, res: express.Response) => {
+    const userToAdd : User = req.body;
+    addUser(userToAdd).then((userId) => 
+        res.json({
+            userIdAdded: userId
         })
     );
 });

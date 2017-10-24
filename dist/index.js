@@ -23,5 +23,11 @@ router.get('/users', (req, res) => {
         users: users
     }));
 });
+router.post('/user', (req, res) => {
+    const userToAdd = req.body;
+    user_service_1.addUser(userToAdd).then((userId) => res.json({
+        userIdAdded: userId
+    }));
+});
 app.use("/", router);
 //# sourceMappingURL=index.js.map

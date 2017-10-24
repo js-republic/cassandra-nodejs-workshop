@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const cassandra_driver_1 = require("cassandra-driver");
 const user_db_model_1 = require("./user.db.model");
 const cassandra_client_database_1 = require("../database/cassandra-client.database");
 function getAllUsersDB() {
@@ -18,4 +19,12 @@ function getAllUsersDB() {
     });
 }
 exports.getAllUsersDB = getAllUsersDB;
+function insertUser(userToAdd) {
+    return __awaiter(this, void 0, void 0, function* () {
+        userToAdd.id = cassandra_driver_1.types.TimeUuid.now();
+        const query = "INSERT INTO examples.users(id,username,password) VALUES (?,?,?)";
+        return userToAdd.id.toString();
+    });
+}
+exports.insertUser = insertUser;
 //# sourceMappingURL=user.da.js.map

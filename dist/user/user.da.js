@@ -23,6 +23,7 @@ function insertUser(userToAdd) {
     return __awaiter(this, void 0, void 0, function* () {
         userToAdd.id = cassandra_driver_1.types.TimeUuid.now();
         const query = "INSERT INTO examples.users(id,username,password) VALUES (?,?,?)";
+        const resQuery = yield cassandra_client_database_1.CassandraClient.execute(query, [userToAdd.id, userToAdd.username, userToAdd.password]);
         return userToAdd.id.toString();
     });
 }

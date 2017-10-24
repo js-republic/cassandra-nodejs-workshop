@@ -16,5 +16,6 @@ export async function getAllUsersDB() : Promise<UserDB[]> {
 export async function insertUser(userToAdd : UserDB) : Promise<string> {
     userToAdd.id = types.TimeUuid.now();
     const query : string = "INSERT INTO examples.users(id,username,password) VALUES (?,?,?)";
+    const resQuery : types.ResultSet = await CassandraClient.execute(query,[userToAdd.id,userToAdd.username,userToAdd.password]);
     return userToAdd.id.toString();
 }

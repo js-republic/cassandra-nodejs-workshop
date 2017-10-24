@@ -19,8 +19,10 @@
     "globals": {
       "__TS_CONFIG__": "tsconfig.json"
     },
-    "notify":true,
-    "modulePathIgnorePatterns": ["./dist"],
+    "notify": true,
+    "modulePathIgnorePatterns": [
+      "./dist"
+    ],
     "moduleFileExtensions": [
       "ts",
       "js"
@@ -31,7 +33,7 @@
     "testMatch": [
       "**/__test__/**/*.spec.ts"
     ],
-    "testEnvironment": "node" 
+    "testEnvironment": "node"
   },
   "dependencies": {
     "async": "^2.1.2",

@@ -1,7 +1,6 @@
 import { getAllUsersDB } from '../user.da';
 import * as cassandraDriverMock from 'cassandra-driver';
 
-
 jest.mock('cassandra-driver');
 
 describe('UserDa', ()=> {

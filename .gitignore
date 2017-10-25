@@ -60,3 +60,6 @@ typings/
 .env
 
 cluster
+*.iml
+.idea
+dist

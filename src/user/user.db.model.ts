@@ -6,6 +6,10 @@ export type UserDB = {
     password : string
 }
 
+export function uuidFromString(id:string){
+    return types.Uuid.fromString(id);
+}
+
 export function mapToUserDB( id: types.Uuid = null, username: string = null, password: string = null ) : UserDB {
     return {
         id : id,

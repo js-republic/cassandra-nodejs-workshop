@@ -1,5 +1,5 @@
 
-import { getAllUsers, addUser } from './user/user.service';
+import { getAllUsers, addUser, modifyUser, getUser, removeUser } from './user/user.service';
 import { mapToUser, User } from './user/user.model';
 
 import * as express from 'express';
@@ -30,7 +30,18 @@ router.get('/users', (req: express.Request, res: express.Response) => {
         res.json({
             users: users
         })
-    );
+    )
+    .catch(err => res.json(err));
+});
+
+router.get('/user/:id', (req: express.Request, res: express.Response) => {
+    const id : string = req.params['id'] ;
+    getUser(id).then((user) => 
+        res.json({
+            user: user
+        })
+    )
+    .catch(err => res.json(err));
 });
 
 router.post('/user', (req: express.Request, res: express.Response) => {
@@ -39,7 +50,23 @@ router.post('/user', (req: express.Request, res: express.Response) => {
         res.json({
             userIdAdded: userId
         })
-    );
+    )
+    .catch(err => res.json(err));
+});
+
+
+router.patch('/user', (req: express.Request, res: express.Response) => {
+    const userToUpdate : User = req.body;
+    modifyUser(userToUpdate)
+    .then(wasUpdated => res.json(wasUpdated))
+    .catch(err => res.json(err));
+});
+
+router.delete('/user/:id', (req: express.Request, res: express.Response) => {
+    const id : string = req.params['id'] ;
+    removeUser(id)
+    .then(wasDeleted => res.json(wasDeleted))
+    .catch(err => res.json(err));
 });
 
 app.use("/",router);

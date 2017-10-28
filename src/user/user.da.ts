@@ -7,10 +7,7 @@ import { CassandraClient } from '../database/cassandra-client.database';
 export async function getAllUsersDB() : Promise<UserDB[]> {
     const query : string = "SELECT * FROM examples.users"
     const resQuery : types.ResultSet = await CassandraClient.execute(query)
-                                                            .catch((err)=>{
-                                                                console.error("Error getAllUsersDB", err);
-                                                                return null;
-                                                            });
+                                                            .catch(handleError);
     return resQuery.rows.map((row : types.Row) => 
         mapToUserDB(row['id'],row['username'],row['password']) 
     );

@@ -1,6 +1,6 @@
 jest.mock('cassandra-driver');
-import { getAllUsersDB } from '../user.da';
-import * as cassandraDriverMock from 'cassandra-driver';
+const { getAllUsersDB } = require('../user.da');
+const cassandraDriverMock = require('cassandra-driver');
 
 describe('UserDa', ()=> {
     describe('getAllUsersDB', () => {
@@ -10,7 +10,7 @@ describe('UserDa', ()=> {
             getAllUsersDB();
 
             // Then
-            //expect(cassandraDriverMock.__query).toEqual('')
+            expect(cassandraDriverMock.__query).toEqual('SELECT * FROM examples.users')
         });
     });
 });

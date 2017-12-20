@@ -59,7 +59,6 @@ typings/
 # dotenv environment variables file
 .env
 
-cluster
 *.iml
 .idea
 dist

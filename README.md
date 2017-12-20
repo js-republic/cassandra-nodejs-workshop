@@ -8,10 +8,11 @@ l'utiliser avec Node.JS pour en tirer pleinement partie.
 # Déroulement du workshop
 
 1. Présentation de Cassandra, une base NoSQL.
-    - [ ] Introduction au NoSQL
-    - [ ] Présentation des différentes familles, et localisation de Cassandra
-    - [ ] Forces & faibles de Cassandra
-    - [ ] Hashtable, stratégie de répartition de données
+    - [X] Introduction au NoSQL
+    - [X] Présentation des différentes familles, et localisation de Cassandra
+    - [X] Forces & faibles de Cassandra
+    - [ ] Retravailler slides pour pour élager le slides des pros de cassandra
+    - [ ] (dans le doc du workshop) Hashtable, stratégie de répartition de données
     - [ ] Présentation du context de l’atelier
     - [ ] Présenter la structure de 'document'
 2. Démarrage de la partie pratique

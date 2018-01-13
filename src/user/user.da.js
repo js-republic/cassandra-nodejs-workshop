@@ -1,5 +1,3 @@
-import { UserDB } from "./user.db.model";
-
 const { types } = require('cassandra-driver');
 const { mapToUserDB } = require('./user.db.model');
 const { CassandraClient } = require('../database/cassandra-client.database');
@@ -37,7 +35,7 @@ module.exports = {
     const resQuery = await CassandraClient.execute(query,[userToUpdate.username,userToUpdate.password,userToUpdate.id])
       .catch(handleError);
     return !!(resQuery);
-  },
+},
 
   async deleteUser(userIdToDelete)  {
     const query = "DELETE FROM examples.users WHERE id=?";

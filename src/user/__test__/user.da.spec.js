@@ -50,7 +50,7 @@ describe('UserDa', ()=> {
     });
 
     describe('insertUser', () => {
-        it ('', async () => {
+        it ('should send a correct query to insert user with username johndoe and password edfjkjq', async () => {
             // Given
             const userToAdd = { id: null, username: 'johndoe', password: 'edfjkjq' };
             // When 
@@ -61,7 +61,7 @@ describe('UserDa', ()=> {
     });
 
     describe('updateUser', () => {
-        it ('', () => {
+        it ('should send a correct query to update user with id 50554d6e-29bb-11e5-b345-feff819cdc9f, username janedoe and password rfderlm', () => {
             // Given
             const userToUpdate = { id: "50554d6e-29bb-11e5-b345-feff819cdc9f", username: 'janedoe', password: 'rfderlm' }
             // When 

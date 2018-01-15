@@ -7,17 +7,20 @@ cassandraDriver.Client = jest.fn(() => ({
   execute: (query, values) => { 
     cassandraDriver.__query = (query.indexOf("?")>-1)?
     values.reduce((acc,elem)=>{
-      if(typeof(elem) === 'string'){
-        return acc.split('').fill("'"+elem+"'", acc.indexOf('?'), acc.indexOf('?') + 1).join("")
-      }
-      if(typeof(elem) === 'number'){
-        return acc.split('').fill(elem, acc.indexOf("?"), acc.indexOf("?") + 1).join("")
-      }
-      return acc.split('').fill(elem.toString(), acc.indexOf('?'), acc.indexOf('?') + 1).join("")
+      return acc.split('')
+                .fill(stringify(elem), acc.indexOf('?'), acc.indexOf('?') + 1)
+                .join('')
     }, query):
     query;
   },
 }));
+
+function stringify(value){
+  if(typeof(value) === 'string'){
+    return "'" + value + "'";
+  }
+  return value.toString();
+}
 
 module.exports = cassandraDriver;
 

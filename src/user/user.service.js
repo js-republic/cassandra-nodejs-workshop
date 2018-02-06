@@ -1,39 +1,31 @@
-const { getAllUsersDB, insertUser } = require('./user.da');
-const { mapToUserDB } = require('./user.db.model');
-const { mapToUser } = require('./user.model');
+const {getAllUsersDB, insertUser} = require('./user.da');
+const {mapToUserDB} = require('./user.db.model');
+const {mapToUser} = require('./user.model');
 
 
 module.exports = {
-  async getAllUsers() {
-    const usersDB = await getAllUsersDB();
-    return usersDB.map(mapToUser);
+  getAllUsers() {
+    return getAllUsersDB()
+      .then(usersDB => usersDB.map(mapToUser));
+
   },
 
-  async addUser(userToAdd) {
+  addUser(userToAdd) {
     const userToAddDB = mapToUserDB(null, userToAdd.username, userToAdd.password);
-    const userId = await insertUser(userToAddDB);
-    return userId;
+    return insertUser(userToAddDB);
 
   },
-  
-  async getUser(id) {
-    const userDB = await getUserById(id).catch(handleError);
-    return mapToUser(userDB);
+
+  getUser(id) {
+    return getUserById(id).then(mapToUser);
   },
 
-  async modifyUser(userToUpdate) {
-    const userToAddDB = mapToUserDB(null,userToUpdate.username, userToUpdate.password);
-    const wasUpdated = await updateUser(userToUpdate.id,userToAddDB).catch(handleError);
-    return wasUpdated;
+  modifyUser(userToUpdate) {
+    const userToAddDB = mapToUserDB(null, userToUpdate.username, userToUpdate.password);
+    return updateUser(userToUpdate.id, userToAddDB);
   },
 
-  async removeUser(userIdToDelete) {
-    return await deleteUser(uuidFromString(userIdToDelete)).catch(handleError);
+  removeUser(userIdToDelete) {
+    return deleteUser(uuidFromString(userIdToDelete))
   }
 };
-
-
-function handleError(error) {
-  console.error("Error on executing a function from DA", error);
-  return null;
-}

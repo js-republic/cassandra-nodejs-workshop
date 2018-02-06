@@ -1,0 +1,9 @@
+cassandra0:
+  image: cassandra
+
+cassandran:
+  image: cassandra
+  links:
+    - cassandra0:seed
+  environment:
+    - CASSANDRA_SEEDS=seed

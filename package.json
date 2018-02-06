@@ -2,6 +2,8 @@
   "name": "cassandra-nodejs-workshop",
   "version": "1.0.0",
   "scripts": {
+    "start:db": "./infra/run-cassandra.sh",
+    "poststart:db": "clr && node infra/instructions.js",
     "start": "nodemon src/index.js",
     "test": "jest"
   },
@@ -17,17 +19,12 @@
     "testEnvironment": "node"
   },
   "dependencies": {
-    "async": "^2.1.2",
     "body-parser": "^1.15.2",
     "cassandra-driver": "^3.3.0",
+    "chalk": "^2.3.0",
+    "clrscr": "^1.0.4",
     "compression": "^1.6.2",
-    "dotenv": "^4.0.0",
-    "errorhandler": "^1.4.3",
     "express": "^4.14.0",
-    "express-flash": "^0.0.2",
-    "express-session": "^1.14.2",
-    "express-validator": "^4.2.1",
-    "lodash": "^4.17.4",
     "morgan": "^1.9.0"
   },
   "devDependencies": {

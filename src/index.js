@@ -2,7 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const http = require('http');
-const userRoutes = require('./user/user.route');
+const characterRoutes = require('./character/character.route');
 
 const app = express();
 
@@ -23,7 +23,7 @@ server.on('listening', () => {
 });
 
 
-app.use('/', userRoutes);
+app.use('/', characterRoutes);
 
 
 

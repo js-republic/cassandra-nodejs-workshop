@@ -14,7 +14,7 @@ l'utiliser avec Node.JS pour en tirer pleinement partie.
     - [X] Retravailler slides pour pour élager le slides des pros de cassandra
     - [ ] (dans le doc du workshop) , stratégie de répartition de données @Yoan
     - [ ] Présentation du context de l’atelier @Yoan
-    - [ ] Présenter la structure de 'document' @Yoan
+    - [X] Présenter la structure de 'document' @Yoan
     - [ ] Compléter les Specs de test
     - [ ] Ajouter le clone du repo et la commande pour démarrer docker au démarrage de la présentation @Yoan
 2. Démarrage de la partie pratique

@@ -12,7 +12,7 @@ services:
       - 9160:9160
     mem_limit: 2G
 
-  cassandra-node-1:
+  cassandra-db-1:
     build: .
     container_name: cassandra-db-1
     links:
@@ -25,7 +25,7 @@ services:
     command: /bin/bash -c "/wait-for-cassandra-node.sh cassandra-db && /docker-entrypoint.sh cassandra -f"
     mem_limit: 2G
 
-  cassandra-node-2:
+  cassandra-db-2:
     build: .
     container_name: cassandra-db-2
     links:
@@ -35,5 +35,5 @@ services:
       - 7000
     environment:
       - CASSANDRA_SEEDS=seed
-    command: /bin/bash -c "sleep 100 && /wait-for-cassandra-node.sh cassandra-db-1 && /docker-entrypoint.sh cassandra -f"
+    command: /bin/bash -c "/wait-for-cassandra-node.sh cassandra-db-1 && /docker-entrypoint.sh cassandra -f"
     mem_limit: 2G

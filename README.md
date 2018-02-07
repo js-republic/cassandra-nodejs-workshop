@@ -58,7 +58,8 @@ noeuds soient prêts séquentiellement.
 > Pour les utilisateurs de Windows, une erreur dévrait subvenir juste après le démarrage
 des trois noeuds, car le détecteur de démarrage du cluster n'a pour l'instant été développé 
 que pour Linux et Mac. Merci de bien vouloir exécuter à la main la commande `npm run start:workshop` pour
-insérer insérer le dataset du workshop.
+insérer
+ le dataset du workshop.
 
 
 ### Structure du projet
@@ -68,15 +69,15 @@ insérer insérer le dataset du workshop.
 - **package.json** & **package-lock.json** : Habituels fichier de définition des dépendances.
 
     
-### Prise en main :
+### Prise en main
 
-Pour commencer, nous vous invitons d'abord à vérifier si votre cluster est bonne santé.
-Pour cela, connectez-vous à une des noeud à l'aide de la commande docker :
+Pour commencer, nous vous invitons d'abord à vérifier si votre cluster est en bonne santé.
+Pour cela, connectez-vous au bash d'un des noeud cassandra à l'aide de la commande docker suivante :
 ```bash
 docker exec -ti cassandra-db bash
 ```
 
-Et utiliser la commande nodetool, expliquée ici :
+Et utiliser la commande `nodetool, expliquée ici :
 [https://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsStatus.html]
 <details>
 <summary><strong>Découvrer la solution ici</strong></summary>
@@ -94,9 +95,61 @@ UN  172.18.0.2  80.2 KiB   256          35.8%             08c3c767-ad6c-4ce9-80e
 UN  172.18.0.3  101.23 KiB  256          32.0%             1732b9df-9464-4e20-8389-5d2acc10bdcc  rack1
 UN  172.18.0.4  110 KiB    256          32.2%             56ce68c0-de55-4686-8d98-1cf65303d341  rack1
 </pre>
+
+Comme vous pouvez le voir, nous vous avons préparé pour le workshop un cluster cassandra composé de trois noeuds, respectivement
+identifié par 172.18.0.2 (instance docker "cassandra-db"), 172.18.0.3 (instance docker "cassandra-db-1") et  172.18.0.4 (instance docker "cassandra-db-2").
+Les ips peuvent être différentes en fonction des machines, mais cela n'a pas d'importance```
 </p>
 </details>
 
+Découvrons maintenant le contenu de notre base de données, pour cela, toujours dans le bash d'un des noeuds cassandra, utilisez
+le `cqlsh`, deuxième outil de base dans cassandra pour lui demander une description des `keyspaces`. 
+Pour le workshop, nous avons créé un keyspace du même nom `workshop`.
+La documetation ci-dessous, devrait vous aider :
+- [https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/cqlsh.html]
+- [https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/describe_r.html]
+
+<details>
+<summary><strong>Découvrer la solution ici</strong></summary>
+<p>
+<pre>
+oot@38eccacd2dd4:/# cqlsh
+Connected to Test Cluster at 127.0.0.1:9042.
+[cqlsh 5.0.1 | Cassandra 3.11.1 | CQL spec 3.4.4 | Native protocol v4]
+Use HELP for help.
+cqlsh> describe keyspaces
+
+system_schema  system_auth  system  workshop  system_distributed  system_traces
+
+cqlsh> describe workshop
+
+CREATE KEYSPACE workshop WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  AND durable_writes = true;
+
+CREATE TABLE workshop.characters (
+    id uuid PRIMARY KEY,
+    allegiance text,
+    house text,
+    name text
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+</pre>
+
+Un Keyspace est une sorte de regroupement de colonne en NoSQL, à l'image des shémas danes les bases relationnelles, il permet d'appliquer
+une politique de replication à l'ensemble de colone qu'il contient.  
+</p>
+</details>
 
 Solution :
 ```cql

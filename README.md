@@ -177,7 +177,7 @@ SELECT * FROM workshop.characters;
 
 ---
 
-Puis insérer un nouveau personnage, disons au hasard "Jhon Snow". (Nous laissons à votre
+Puis insérer un nouveau personnage, disons au hasard "Jon Snow". (Nous laissons à votre
 discretion le choix de sa maison...)
 
 <https://docs.datastax.com/en/cql/3.1/cql/cql_reference/insert_r.html>
@@ -186,7 +186,7 @@ discretion le choix de sa maison...)
 <summary><i>Découvrer la solution ici</i></summary>
 <p>
 <pre>
-INSERT INTO workshop.characters (id, name, house, allegiance) VALUES (uuid(), 'Jhon Snow', 'Targaryen', 'Stark');
+INSERT INTO workshop.characters (id, name, house, allegiance) VALUES (uuid(), 'Jon Snow', 'Targaryen', 'Stark');
 </pre>
 </p>
 </details>

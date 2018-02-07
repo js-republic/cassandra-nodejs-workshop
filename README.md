@@ -14,7 +14,7 @@ Rassurez-vous, nous commençons avec les premiers pas pour finir avec des cas pl
 
 Au total, ce workshop dure en moyenne 2h.
 
-## Pré-requis
+# Pré-requis
 
 Ce workshop nécessite pour être accomplie :
  - Un ordinateur ...
@@ -31,7 +31,7 @@ Merci de veiller à ce que votre container docker est au **minimum 5Go** de mém
 - Pour windows : <https://docs.docker.com/docker-for-windows/#advanced>
   
 
-## Installation & démarrage
+# Installation & démarrage
 
 Une fois les pré-requis remplient, pour commencer le TP, il vous faut cloner ce repo sur votre machine :
 ```bash
@@ -63,14 +63,14 @@ que pour Linux et Mac. Merci de bien vouloir exécuter à la main la commande `n
 insérer le dataset du workshop.
 
 
-### Structure du projet
+# Structure du projet
 
 - **/infra**: Contient les fichiers dockers et shell nécessaires au démarrage du cluster cassandra. Vous y retrouverez aussi le dataset de données dans le fichier `dataset.cql`
 - **/src**: Contient les sources JavaScript du projet utilisé pour communiquer avec la base de données.
 - **package.json** & **package-lock.json** : Habituels fichier de définition des dépendances.
 
     
-### Prise en main
+## Prise en main
 
 Pour commencer, nous vous invitons d'abord à vérifier si votre cluster est en bonne santé.
 Pour cela, connectez-vous au bash d'un des noeuds cassandra à l'aide de la commande docker suivante :
@@ -208,10 +208,10 @@ CREATE INDEX houses ON workshop.characters( house );
 </p>
 </details>
 
-### Passons au code !
+## Passons au code !
 
 @Yoan
 
-### Replication, résiliance, allons plus loin !
+## Replication, résiliance, allons plus loin !
 
 @Mathieu

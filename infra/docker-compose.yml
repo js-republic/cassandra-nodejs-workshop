@@ -1,4 +1,4 @@
-version: "3.3"
+version: "2.2"
 
 services:
   cassandra-db:
@@ -10,6 +10,7 @@ services:
       - 7199:7199
       - 9042:9042
       - 9160:9160
+    mem_limit: 2G
 
   cassandra-node-1:
     build: .
@@ -22,6 +23,7 @@ services:
     environment:
       - CASSANDRA_SEEDS=seed
     command: /bin/bash -c "/wait-for-cassandra-node.sh cassandra-db && /docker-entrypoint.sh cassandra -f"
+    mem_limit: 2G
 
   cassandra-node-2:
     build: .
@@ -34,3 +36,4 @@ services:
     environment:
       - CASSANDRA_SEEDS=seed
     command: /bin/bash -c "sleep 100 && /wait-for-cassandra-node.sh cassandra-db-1 && /docker-entrypoint.sh cassandra -f"
+    mem_limit: 2G

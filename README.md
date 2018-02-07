@@ -25,10 +25,15 @@ Ce workshop nécessite pour être accomplie :
  
 Au cours de ce workshop, nous lancerons un cluster cassandra. Ce type de processus
 nécessite beaucoup de mémoire allouée au container docker installé sur votre ordinateur.
-Merci de veiller à ce que votre container docker est au **minimum 5Go** de mémoire vive allouée, en suivant les indications suivantes :
+Merci de veiller à ce que votre container docker est au **minimum 7Go** de mémoire vive allouée, en suivant les indications suivantes :
 
 - Pour mac : <https://docs.docker.com/docker-for-mac/#memory>
 - Pour windows : <https://docs.docker.com/docker-for-windows/#advanced>
+
+> De par son fonctionnement Cassandra est assez gourmand en RAM. La communauté s'accorde
+à dire qu'un noeud nécessite au moins 4Go pour fonctionner normalement. Dans le cadre de ce workshop
+nous avons limité la consomation mémoire des noeuds à 2Go afin que cela reste utilable sur
+un ordinateur classique.
   
 
 # Installation & démarrage
@@ -67,7 +72,7 @@ insérer le dataset du workshop.
 
 - **/infra**: Contient les fichiers dockers et shell nécessaires au démarrage du cluster cassandra. Vous y retrouverez aussi le dataset de données dans le fichier `dataset.cql`
 - **/src**: Contient les sources JavaScript du projet utilisé pour communiquer avec la base de données.
-- **package.json** & **package-lock.json** : Habituels fichier de définition des dépendances.
+- **package.json** & **package-lock.json** : Habituels fichiers de définition des dépendances.
 
     
 ## Prise en main
@@ -108,7 +113,7 @@ Les ips peuvent être différentes en fonction des machines, mais cela n'a pas d
 Découvrons maintenant le contenu de notre base de données, pour cela, toujours dans le bash d'un des noeuds cassandra, utilisez
 le `cqlsh`, deuxième outil de base dans cassandra pour lui demander une description des `keyspaces`. 
 Pour le workshop, nous avons créé un keyspace du même nom `workshop`.
-La documetation ci-dessous, devrait vous aider :
+La documentation ci-dessous, devrait vous aider :
 - <https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/cqlsh.html>
 - <https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/describe_r.html>
 
@@ -121,11 +126,14 @@ Connected to Test Cluster at 127.0.0.1:9042.
 [cqlsh 5.0.1 | Cassandra 3.11.1 | CQL spec 3.4.4 | Native protocol v4]
 Use HELP for help.
 cqlsh> describe keyspaces
-
+</pre>
+<pre>
 system_schema  system_auth  system  workshop  system_distributed  system_traces
-
+</pre>
+<pre>
 cqlsh> describe workshop
-
+</pre>
+<pre>
 CREATE KEYSPACE workshop WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  AND durable_writes = true;
 
 CREATE TABLE workshop.characters (
@@ -194,7 +202,7 @@ INSERT INTO workshop.characters (id, name, house, allegiance) VALUES (uuid(), 'J
 ---
 
 Dans l'application que nous allons compléter par la suite, nous allons requêter
-pour connaitre les personnages d'un maison. Cette information, stcokée dans la 
+pour connaitre les personnages d'un maison. Cette information, stockée dans la 
 colone `house` est donc une parfaite candidate à la pose d'un index.
 <https://docs.datastax.com/en/cql/3.1/cql/ddl/ddl_when_use_index_c.html>
 <https://docs.datastax.com/en/cql/3.3/cql/cql_reference/cqlCreateIndex.html>

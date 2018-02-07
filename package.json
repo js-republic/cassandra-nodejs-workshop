@@ -8,7 +8,8 @@
     "poststart:db": "./infra/wait-for-cassandra-cluster.sh cassandra-db-2 && npm run start:workshop",
     "start:workshop": "clr && node infra/workshop-bootstrap.js",
     "start": "nodemon src/index.js",
-    "test": "jest"
+    "node:add": "node infra/add-new-node.js",
+    "test": "jest --watch"
   },
   "license": "MIT",
   "jest": {

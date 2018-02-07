@@ -79,7 +79,7 @@ docker exec -ti cassandra-db bash
 Et utiliser la commande `nodetool` expliquée ici :
 <https://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsStatus.html>
 <details>
-<summary><strong>Découvrer la solution ici</strong></summary>
+<summary><i>Découvrer la solution ici</i></summary>
 <p>
 <pre>
 nodetool status
@@ -111,7 +111,7 @@ La documetation ci-dessous, devrait vous aider :
 - <https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/describe_r.html>
 
 <details>
-<summary><strong>Découvrer la solution ici</strong></summary>
+<summary><i>Découvrer la solution ici</i></summary>
 <p>
 <pre>
 oot@38eccacd2dd4:/# cqlsh
@@ -165,7 +165,7 @@ Grâce à la documentation ci-dessous, faite une requête permettant de lire tou
 
 <https://docs.datastax.com/en/cql/3.1/cql/cql_reference/select_r.html>
 <details>
-<summary><strong>Découvrer la solution ici</strong></summary>
+<summary><i>Découvrer la solution ici</i></summary>
 <p>
 <pre>
 SELECT * FROM workshop.characters;
@@ -181,13 +181,11 @@ discretion le choix de sa maison...)
 <https://docs.datastax.com/en/cql/3.1/cql/cql_reference/insert_r.html>
 
 <details>
-<summary><strong>Découvrer la solution ici</strong></summary>
+<summary><i>Découvrer la solution ici</i></summary>
 <p>
-<div class="sql">
-<pre class="sql">
+<pre>
 INSERT INTO workshop.characters (id, name, house, allegiance) VALUES (uuid(), 'Jhon Snow', 'Targaryen', 'Stark');
 </pre>
-</div>
 </p>
 </details>
 

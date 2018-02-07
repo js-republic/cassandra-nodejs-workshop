@@ -218,7 +218,7 @@ CREATE INDEX houses ON workshop.characters( house );
 
 ## Passons au code !
 
-Maintenant, que nous avons notre base de données Cassandra préparé avec nos personnages préférés (GoT ou pas), il est temps de passer à la partie Node. JS de l'histoire. 
+Maintenant, que nous avons notre base de données Cassandra préparée avec nos personnages préférés (GoT ou pas), il est temps de passer à la partie Node.JS de l'histoire. 
 
 Dans le dossier **src** vous avez déjà en place une API avec les méthodes CRUD basiques pour les personnages plus les différents connectores entre le dernier: les services, et la data access, et c'est sur le **da** que nous allons nous concentrer. 
 
@@ -226,6 +226,7 @@ Le but est de vous rendre à l'aise avec le driver Cassandra et exécuter les di
 
 Les teste sont déjà mits en place pour vous guider dans le développement des différentes fonctions, TDD style, guys!
 
+<https://github.com/datastax/nodejs-driver>
 
 ## Replication, résiliance, allons plus loin !
 

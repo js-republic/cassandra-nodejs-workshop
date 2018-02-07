@@ -25,8 +25,8 @@ Au cours de ce workshop, nous lancerons un cluster cassandra. Ce type de process
 nécessite beaucoup de mémoire allouée au container docker installé sur votre ordinateur.
 Merci de veiller à ce que votre container docker est au **minimum 5Go** de mémoire vive allouée, en suivant les indications suivantes :
 
-- Pour mac : https://docs.docker.com/docker-for-mac/#memory
-- Pour windows : https://docs.docker.com/docker-for-windows/#advanced
+- Pour mac : <https://docs.docker.com/docker-for-mac/#memory>
+- Pour windows : <https://docs.docker.com/docker-for-windows/#advanced>
   
 
 ## Installation & démarrage
@@ -77,7 +77,7 @@ docker exec -ti cassandra-db bash
 ```
 
 Et utiliser la commande `nodetool` expliquée ici :
-(https://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsStatus.html)
+<https://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsStatus.html>
 <details>
 <summary><strong>Découvrer la solution ici</strong></summary>
 <p>
@@ -107,8 +107,8 @@ Découvrons maintenant le contenu de notre base de données, pour cela, toujours
 le `cqlsh`, deuxième outil de base dans cassandra pour lui demander une description des `keyspaces`. 
 Pour le workshop, nous avons créé un keyspace du même nom `workshop`.
 La documetation ci-dessous, devrait vous aider :
-- https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/cqlsh.html
-- https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/describe_r.html
+- <https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/cqlsh.html>
+- <https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/describe_r.html>
 
 <details>
 <summary><strong>Découvrer la solution ici</strong></summary>
@@ -148,25 +148,49 @@ CREATE TABLE workshop.characters (
 </pre>
 
 Un Keyspace est une sorte de regroupement de colonne en NoSQL, à l'image des shémas dans les bases relationnelles, il permet d'appliquer
-une politique de replication à l'ensemble des colonne squ'il contient. Pour en savoir plus :
-https://en.wikipedia.org/wiki/Keyspace_(distributed_data_store)  
+une politique de replication à l'ensemble des colonne squ'il contient.
+
+Pour en savoir plus :
+<https://en.wikipedia.org/wiki/Keyspace_(distributed_data_store)>  
 </p>
 </details>
 
-Solution :
-```cql
-INSERT INTO workshop.users (id, username, password) VALUES (uuid(), 'johndoe', 'pass');
-```
-```cql
-SELECT * FROM workshop.users;
-```
+---
+
+Nous y voyons un peu plus clair maitenant sur le contenu de notre base de données. Tentons
+désormais de faire nos premières requêtes CQL permettant de manipuler la données à l'intérieur
+de cette base.
+
+Grâce à la documentation ci-dessous, faite une requête permettant de lire tous les personnages de la table `characters` dans le keyspace `workshop`.
+<https://docs.datastax.com/en/cql/3.1/cql/cql_reference/select_r.html>
+<details>
+<summary><strong>Découvrer la solution ici</strong></summary>
+<p>
+<pre>
+SELECT * FROM workshop.characters;
+</pre>
+</p>
+</details>
+
+---
+
+Puis insérer un nouveau personnage, disons au hasard "Jhon Snow". (Nous laissons à votre
+discretion le choix de sa maison...)
+<https://docs.datastax.com/en/cql/3.1/cql/cql_reference/insert_r.html>
+
+<details>
+<summary><strong>Découvrer la solution ici</strong></summary>
+<p>
+<pre>
+INSERT INTO workshop.characters (id, name, house, allegiance) VALUES (uuid(), 'Jhon Snow', 'Targaryen', 'Stark');
+</pre>
+</p>
+</details>
+
     
 ```cql
 CREATE INDEX houses ON workshop.characters( name );
 ```
- 
-```cql
-SELECT * FROM workshop.characters WHERE artist = 'Fu Manchu';
-```
+
 
 [Reste à faire !](./todo.md)

@@ -79,7 +79,7 @@ docker exec -ti cassandra-db bash
 Et utiliser la commande nodetool, expliquée ici :
 [https://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsStatus.html]
 <details>
-<summary><strong>Découvrer la solution ici<strong></summary>
+<summary><strong>Découvrer la solution ici</strong></summary>
 <p>
 <pre>
 nodetool status

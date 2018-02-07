@@ -1,9 +1,36 @@
-cassandra0:
-  image: cassandra
+version: "3.3"
 
-cassandran:
-  image: cassandra
-  links:
-    - cassandra0:seed
-  environment:
-    - CASSANDRA_SEEDS=seed
+services:
+  cassandra-db:
+    build: .
+    container_name: cassandra-db
+    ports :
+      - 7000:7000
+      - 7001:7001
+      - 7199:7199
+      - 9042:9042
+      - 9160:9160
+
+  cassandra-node-1:
+    build: .
+    container_name: cassandra-db-1
+    links:
+      - cassandra-db:seed
+    ports:
+      - 9142:9042
+      - 7000
+    environment:
+      - CASSANDRA_SEEDS=seed
+    command: /bin/bash -c "/wait-for-cassandra-node.sh cassandra-db && /docker-entrypoint.sh cassandra -f"
+
+  cassandra-node-2:
+    build: .
+    container_name: cassandra-db-2
+    links:
+      - cassandra-db:seed
+    ports:
+      - 9242:9042
+      - 7000
+    environment:
+      - CASSANDRA_SEEDS=seed
+    command: /bin/bash -c "sleep 100 && /wait-for-cassandra-node.sh cassandra-db-1 && /docker-entrypoint.sh cassandra -f"

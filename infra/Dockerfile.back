@@ -1,9 +1,0 @@
-FROM cassandra
-
-RUN cassandra -R
-
-COPY wait-cassandra-up.sh ./
-RUN chmod +x wait-cassandra-up.sh
-RUN sh -c './wait-cassandra-up.sh'
-RUN cqlsh -e "CREATE KEYSPACE workshop WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1 }"
-RUN cqlsh -e "CREATE TABLE workshop.users(id uuid PRIMARY KEY,  username text, password text);"

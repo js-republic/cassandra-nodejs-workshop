@@ -2,8 +2,9 @@
   "name": "cassandra-nodejs-workshop",
   "version": "1.0.0",
   "scripts": {
-    "start:db": "./infra/run-cassandra.sh",
-    "poststart:db": "clr && node infra/instructions.js",
+    "prestart:db": "docker-compose -f infra/docker-compose.yml rm -f -s",
+    "start:db": "docker-compose -f infra/docker-compose.yml up -d",
+    "poststart:db": "./infra/wait-for-cassandra-cluster.sh cassandra-db-2 && node infra/workshop-bootstrap.js",
     "start": "nodemon src/index.js",
     "test": "jest"
   },

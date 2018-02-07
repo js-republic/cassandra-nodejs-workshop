@@ -184,7 +184,7 @@ discretion le choix de sa maison...)
 <summary><strong>Découvrer la solution ici</strong></summary>
 <p>
 <div class="sql">
-<pre>
+<pre class="sql">
 INSERT INTO workshop.characters (id, name, house, allegiance) VALUES (uuid(), 'Jhon Snow', 'Targaryen', 'Stark');
 </pre>
 </div>

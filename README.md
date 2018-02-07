@@ -25,8 +25,8 @@ Au cours de ce workshop, nous lancerons un cluster cassandra. Ce type de process
 nécessite beaucoup de mémoire allouée au container docker installé sur votre ordinateur.
 Merci de veiller à ce que votre container docker est au **minimum 5Go** de mémoire vive allouée, en suivant les indications suivantes :
 
-- Pour mac : [https://docs.docker.com/docker-for-mac/#memory]
-- Pour windows : [https://docs.docker.com/docker-for-windows/#advanced]
+- Pour mac : https://docs.docker.com/docker-for-mac/#memory
+- Pour windows : https://docs.docker.com/docker-for-windows/#advanced
   
 
 ## Installation & démarrage
@@ -41,7 +41,7 @@ Ce rendre dans le dossier nouvellement créé :
 cd cassandra-nodejs-workshop
 ```
 
-Installer les dépendances :
+Installer les dépendences :
 ```bash
 npm install
 ```
@@ -58,8 +58,7 @@ noeuds soient prêts séquentiellement.
 > Pour les utilisateurs de Windows, une erreur dévrait subvenir juste après le démarrage
 des trois noeuds, car le détecteur de démarrage du cluster n'a pour l'instant été développé 
 que pour Linux et Mac. Merci de bien vouloir exécuter à la main la commande `npm run start:workshop` pour
-insérer
- le dataset du workshop.
+insérer le dataset du workshop.
 
 
 ### Structure du projet
@@ -72,13 +71,13 @@ insérer
 ### Prise en main
 
 Pour commencer, nous vous invitons d'abord à vérifier si votre cluster est en bonne santé.
-Pour cela, connectez-vous au bash d'un des noeud cassandra à l'aide de la commande docker suivante :
+Pour cela, connectez-vous au bash d'un des noeuds cassandra à l'aide de la commande docker suivante :
 ```bash
 docker exec -ti cassandra-db bash
 ```
 
-Et utiliser la commande `nodetool, expliquée ici :
-[https://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsStatus.html]
+Et utiliser la commande `nodetool` expliquée ici :
+(https://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsStatus.html)
 <details>
 <summary><strong>Découvrer la solution ici</strong></summary>
 <p>
@@ -102,12 +101,14 @@ Les ips peuvent être différentes en fonction des machines, mais cela n'a pas d
 </p>
 </details>
 
+---
+
 Découvrons maintenant le contenu de notre base de données, pour cela, toujours dans le bash d'un des noeuds cassandra, utilisez
 le `cqlsh`, deuxième outil de base dans cassandra pour lui demander une description des `keyspaces`. 
 Pour le workshop, nous avons créé un keyspace du même nom `workshop`.
 La documetation ci-dessous, devrait vous aider :
-- [https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/cqlsh.html]
-- [https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/describe_r.html]
+- https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/cqlsh.html
+- https://docs.datastax.com/en/archived/cql/3.0/cql/cql_reference/describe_r.html
 
 <details>
 <summary><strong>Découvrer la solution ici</strong></summary>
@@ -146,8 +147,9 @@ CREATE TABLE workshop.characters (
     AND speculative_retry = '99PERCENTILE';
 </pre>
 
-Un Keyspace est une sorte de regroupement de colonne en NoSQL, à l'image des shémas danes les bases relationnelles, il permet d'appliquer
-une politique de replication à l'ensemble de colone qu'il contient.  
+Un Keyspace est une sorte de regroupement de colonne en NoSQL, à l'image des shémas dans les bases relationnelles, il permet d'appliquer
+une politique de replication à l'ensemble des colonne squ'il contient. Pour en savoir plus :
+https://en.wikipedia.org/wiki/Keyspace_(distributed_data_store)  
 </p>
 </details>
 

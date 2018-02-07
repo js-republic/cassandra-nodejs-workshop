@@ -189,10 +189,22 @@ INSERT INTO workshop.characters (id, name, house, allegiance) VALUES (uuid(), 'J
 </p>
 </details>
 
-    
-```cql
-CREATE INDEX houses ON workshop.characters( name );
-```
+---
+
+Dans l'application que nous allons compléter par la suite, nous allons requêter
+pour connaitre les personnages d'un maison. Cette information, stcokée dans la 
+colone `house` est donc une parfaite candidate à la pose d'un index.
+<https://docs.datastax.com/en/cql/3.1/cql/ddl/ddl_when_use_index_c.html>
+<https://docs.datastax.com/en/cql/3.3/cql/cql_reference/cqlCreateIndex.html>
+
+<details>
+<summary><i>Découvrer la solution ici</i></summary>
+<p>
+<pre>
+CREATE INDEX houses ON workshop.characters( house );
+</pre>
+</p>
+</details>
 
 
 [Reste à faire !](./todo.md)

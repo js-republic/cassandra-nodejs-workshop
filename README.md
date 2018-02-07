@@ -78,7 +78,7 @@ docker exec -ti cassandra-db bash
 
 Et utiliser la commande nodetool, expliquée ici :
 [https://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsStatus.html]
-<detail>
+<details>
 <summary>Solution</summary>
 <p>
 <pre>
@@ -95,7 +95,7 @@ UN  172.18.0.3  101.23 KiB  256          32.0%             1732b9df-9464-4e20-83
 UN  172.18.0.4  110 KiB    256          32.2%             56ce68c0-de55-4686-8d98-1cf65303d341  rack1
 </pre>
 </p>
-</detail>
+</details>
 
 
 Solution :

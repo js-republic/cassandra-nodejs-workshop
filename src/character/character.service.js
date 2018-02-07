@@ -1,4 +1,3 @@
-
 const {
   getAllCharactersDB, 
   insertCharacter, 
@@ -14,13 +13,11 @@ module.exports = {
   getAllCharacters() {
     return getAllCharactersDB()
       .then(charactersDB => charactersDB.map(mapToCharacter));
-
   },
 
   addCharacter(characterToAdd) {
     const characterToAddDB = mapToCharacterDB(null, characterToAdd.name, characterToAdd.house, characterToAdd.allegiance);
     return insertCharacter(characterToAddDB);
-
   },
 
   getCharacter(id) {

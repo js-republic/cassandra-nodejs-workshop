@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
   res.json({api: '/characters'})
 });
 
-router.get('/characters', (req, res) => {
+router.get('/character', (req, res) => {
   getAllCharacters()
     .then((characters) => res.json({characters: characters}))
     .catch(err => res.status(500).send(err));

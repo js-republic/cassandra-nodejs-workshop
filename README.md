@@ -80,10 +80,11 @@ Et utiliser la commande nodetool, expliquée ici :
 [https://docs.datastax.com/en/cassandra/2.1/cassandra/tools/toolsStatus.html]
 <detail>
 <summary>Solution</summary>
-```bash
+<p>
+<pre>
 nodetool status
-```
-```
+</pre>
+<pre>
 Datacenter: datacenter1
 =======================
 Status=Up/Down
@@ -92,7 +93,8 @@ Status=Up/Down
 UN  172.18.0.2  80.2 KiB   256          35.8%             08c3c767-ad6c-4ce9-80eb-5b8ff1bc63d6  rack1
 UN  172.18.0.3  101.23 KiB  256          32.0%             1732b9df-9464-4e20-8389-5d2acc10bdcc  rack1
 UN  172.18.0.4  110 KiB    256          32.2%             56ce68c0-de55-4686-8d98-1cf65303d341  rack1
-```
+</pre>
+</p>
 </detail>
 
 

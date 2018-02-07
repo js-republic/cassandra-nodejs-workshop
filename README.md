@@ -96,8 +96,8 @@ UN  172.18.0.4  110 KiB    256          32.2%             56ce68c0-de55-4686-8d9
 </pre>
 
 Comme vous pouvez le voir, nous vous avons préparé pour le workshop un cluster cassandra composé de trois noeuds, respectivement
-identifié par 172.18.0.2 (instance docker "cassandra-db"), 172.18.0.3 (instance docker "cassandra-db-1") et  172.18.0.4 (instance docker "cassandra-db-2").
-Les ips peuvent être différentes en fonction des machines, mais cela n'a pas d'importance```
+identifiés par 172.18.0.2 (instance docker "cassandra-db"), 172.18.0.3 (instance docker "cassandra-db-1") et  172.18.0.4 (instance docker "cassandra-db-2").
+Les ips peuvent être différentes en fonction des machines, mais cela n'a pas d'importance
 </p>
 </details>
 
@@ -148,7 +148,7 @@ CREATE TABLE workshop.characters (
 </pre>
 
 Un Keyspace est une sorte de regroupement de colonne en NoSQL, à l'image des shémas dans les bases relationnelles, il permet d'appliquer
-une politique de replication à l'ensemble des colonne squ'il contient.
+une politique de replication à l'ensemble des colonnes qu'il contient.
 
 Pour en savoir plus :
 <https://en.wikipedia.org/wiki/Keyspace_(distributed_data_store)>  
@@ -162,6 +162,7 @@ désormais de faire nos premières requêtes CQL permettant de manipuler la donn
 de cette base.
 
 Grâce à la documentation ci-dessous, faite une requête permettant de lire tous les personnages de la table `characters` dans le keyspace `workshop`.
+
 <https://docs.datastax.com/en/cql/3.1/cql/cql_reference/select_r.html>
 <details>
 <summary><strong>Découvrer la solution ici</strong></summary>
@@ -176,14 +177,15 @@ SELECT * FROM workshop.characters;
 
 Puis insérer un nouveau personnage, disons au hasard "Jhon Snow". (Nous laissons à votre
 discretion le choix de sa maison...)
+
 <https://docs.datastax.com/en/cql/3.1/cql/cql_reference/insert_r.html>
 
 <details>
 <summary><strong>Découvrer la solution ici</strong></summary>
 <p>
-<pre>
+<pre><code class="sql">
 INSERT INTO workshop.characters (id, name, house, allegiance) VALUES (uuid(), 'Jhon Snow', 'Targaryen', 'Stark');
-</pre>
+</code></pre>
 </p>
 </details>
 

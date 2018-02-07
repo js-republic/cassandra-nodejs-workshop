@@ -1,6 +1,8 @@
 Workshop NodeJS & Cassandra Database
 ===
 
+[Reste à faire !](./todo.md)
+
 Le but de ce Workshop (scéance de traveaux pratiques) est de permettre à des participants 
 avec un minimum de connaissance en développement JavaScript et en base de données d'apprendre
 ce qu'est la base de données Cassandra, comment l'utiliser seule et avec NodeJS.
@@ -206,5 +208,10 @@ CREATE INDEX houses ON workshop.characters( house );
 </p>
 </details>
 
+### Passons au code !
 
-[Reste à faire !](./todo.md)
+@Yoan
+
+### Replication, résiliance, allons plus loin !
+
+@Mathieu

@@ -2,7 +2,7 @@
   "name": "cassandra-nodejs-workshop",
   "version": "1.0.0",
   "scripts": {
-    "db:stop": "docker-compose -f infra/docker-compose.yml rm -f -s -v && docker rm ",
+    "db:stop": "docker-compose -f infra/docker-compose.yml rm -f -s -v",
     "db:start": "docker-compose -f infra/docker-compose.yml up -d",
     "db:init": "node infra/workshop-bootstrap.js",
     "db:add:node": "node infra/add-new-node.js",

@@ -218,15 +218,96 @@ CREATE INDEX houses ON workshop.characters( house );
 
 ## Passons au code !
 
-Maintenant, que nous avons notre base de données Cassandra préparée avec nos personnages préférés (GoT ou pas), il est temps de passer à la partie Node.JS de l'histoire. 
+Maintenant, que nous avons notre base de données Cassandra préparée avec nos personnages préférés (GoT ou pas), 
+il est temps de passer à la partie Node.JS de l'histoire. 
 
-Dans le dossier **src** vous avez déjà en place une API avec les méthodes CRUD basiques pour les personnages plus les différents connectores entre le dernier: les services, et la data access, et c'est sur le **da** que nous allons nous concentrer. 
+Dans le dossier **src** vous avez déjà en place une API avec les méthodes CRUD basiques pour les personnages organisés comme suit:
+```
+$ tree src
+src                                 
+├── character
+│   ├── __mocks__
+│   │   └── cassandra-driver.js         <- Mock utilisé dans les test unitaires
+│   ├── __test__
+│   │   └── character.da.spec.js        <- Tests unitaires du fichier character.da.js
+│   ├── character.da.js                 <- C'est ici que ça va se passer ! la couche d'accès aux données Cassandra 
+│   ├── character.db.model.js           <- Modèle en base de données de character
+│   ├── character.model.js              <- Modèle de character
+│   ├── character.route.js              <- Router exposant l'API CRUD
+│   └── character.service.js            <- Service business (passe plat dans notre cas)
+├── database
+│   └── cassandra-client.database.js    <- Client se connectant à la base Cassandra
+└── index.js                            <- Fichier d'entrée à l'application Express
+```
 
-Le but est de vous rendre à l'aise avec le driver Cassandra et exécuter les différents querys sur la base de donnée que nous avons déjà préparée.
+Le but est de vous rendre à l'aise avec le driver Cassandra et implémenter les différentes requêtes sur la base de données 
+que nous avons déjà préparée.
 
-Les teste sont déjà mits en place pour vous guider dans le développement des différentes fonctions, TDD style, guys!
+Lancer donc la commande :
+```bash
+npm test
+```
 
+Et laissez vous guider par les tests unitaires implémentés dans `character.da.spec.js` 
+en remplissant les fonctions du fichier `character.da.js`.
+
+Pour vous aider dans votre tâche, vous pouvez jeter un oeil à la doc :
 <https://github.com/datastax/nodejs-driver>
+
+TDD style, guys!
+
+<details>
+<summary><i>Découvrer la solution ici</i></summary>
+<p>
+<pre>
+const {types} = require('cassandra-driver');
+const {mapToCharacterDB} = require('./character.db.model');
+const {CassandraClient} = require('../database/cassandra-client.database');
+
+module.exports = {
+  getAllCharactersDB() {
+    const query = 'SELECT * FROM workshop.characters';
+    return CassandraClient.execute(query).then(resQuery => {
+      return resQuery.rows.map((row) =>
+        mapToCharacterDB(row['id'], row['name'], row['house'], row['allegiance'])
+      )
+    });
+  },
+
+  getCharacterById(id) {
+    const params = [types.Uuid.fromString(id)];
+    const query = 'SELECT * FROM workshop.characters WHERE id=?';
+    return CassandraClient.execute(query, params).then(resQuery => {
+      const row = resQuery.first();
+      return mapToCharacterDB(row['id'], row['name'], row['house'], row['allegiance']);
+    });
+  },
+
+  insertCharacter(characterToAdd) {
+    const query = 'INSERT INTO workshop.characters(id,name,house,allegiance) VALUES (?,?,?,?)';
+    const newId = types.TimeUuid.now();
+    const params = [newId, characterToAdd.name, characterToAdd.house,characterToAdd.allegiance];
+    return CassandraClient.execute(query, params).then(() => {
+      return newId.toString();
+    });
+  },
+
+  updateCharacter(id, characterToUpdate) {
+    const query = 'UPDATE workshop.characters SET name=?, house=?, allegiance=? WHERE id=?';
+    const params = [characterToUpdate.name, characterToUpdate.house, characterToUpdate.allegiance, types.Uuid.fromString(id)];
+    return CassandraClient.execute(query, params).then(resQuery => !!resQuery);
+  },
+
+  deleteCharacter(characterIdToDelete) {
+    const query = 'DELETE FROM workshop.characters WHERE id=?';
+    return CassandraClient.execute(query, [characterIdToDelete]).then(resQuery => !!resQuery)
+  }
+};
+</pre>
+</p>
+</details>
+
+---
 
 ## Replication, résiliance, allons plus loin !
 

@@ -317,16 +317,88 @@ Nous allons donc plus loin dans notre utilisation de Cassandra en ajoutant un no
 appel à la commande :
 
 ```bash
-npm run db:ad:node
+npm run db:add:node
 ```
 
 Celle-ci lance le fichier `infra/add-new-node.js` qui lui même lance une commande docker pour ajouter un noeud en lui précisant
-quel est le ou les noeuds `seed` du cluster.
+quel est le noeud `seed` du cluster (l'instance docker `cassandra-db` dans notre cas).
 
 Le(s) `seed(s)` sont une liste de machine responsable d'introniser les noeuds dans un cluster. C'est à lui/eux que viendront s'addresser chaque noeuds
-désireux de rejointre le cluster. Il faut donc au minimum un `seed` par cluster (notre cas) mais on peut en avoir beaucoup plus, il ne faut pas pour autant que tous les noeuds du cluster soient des `seed`.
+désireux de rejoindre le cluster. Il faut donc au minimum un `seed` par cluster (notre cas) mais on peut en avoir beaucoup plus, il ne faut pas pour autant que tous les noeuds du cluster soient des `seed`.
 
 Pour en savoir plus :
 
 <https://docs.datastax.com/en/cassandra/2.1/cassandra/architecture/architectureGossipAbout_c.html>
 
+### Et ça marche si on tu un noeud
+
+Cassandra est une base de données, particulièrement résistante à la panne. Pour vous le démontrer nous allons nous amuser
+à tuer un noeud et pas n'importe lequel puisse que nous allons tué le `seed`. Cela démontra que le seed n'est vraiment
+pas un Single Point Of Failure.
+
+D'abord lancer l'application avec :
+```bash
+npm start
+```
+
+Rendez-vous à l'adresse : `http://localhost:3000/character`
+Et vous verrez la liste des `characters` retourné par la base au travers du serveur NodeJS.
+
+Tuer maintenant le seed :
+
+```bash
+npm run db:kill:seed
+```
+
+Et rafraichissez votre page. Le résultat est toujours disponible !
+
+**Comment cela est possible ?**
+
+La première raison pour laquelle cela continu à fonctionner est d'abord le taux de replication. En effet, si vous regardez 
+la première ligne du fichier `infra/dataset.cql` vous verrez ceci :
+```bash
+CREATE KEYSPACE workshop WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 2 };
+```
+
+Si vous prêtez attention à la fin de la ligne, vous verrez que le taux de replication est positionner à deux. Cela signifie 
+que Cassandra va copier la deux données dans deux noeuds différents (Dans notre cas sur `cassandra-db` et `cassandra-db-1`)
+
+La deuxième raison pour laquelle cela fonctionne est notre stratégie de load balancing configuré dans le driver Cassandra pour NodeJS.
+Rendez-vous maintenant dans le fichier `src/character/database/cassandra-client-database.js` pour comprendre :
+```ecmascript 6
+const {Client, policies} = require('cassandra-driver');
+
+const localDatacenter = 'datacenter1';
+
+module.exports = {
+  CassandraClient: new Client({
+    contactPoints: ['127.0.0.1:9042', '127.0.0.1:9142'],
+    keyspace: 'workshop',
+    policies: {
+      loadBalancing: new policies.loadBalancing.DCAwareRoundRobinPolicy(localDatacenter)
+    }
+  })
+};
+```
+
+Nous précisons à la 10ième ligne que nous voulons adopter une stratégie de RoundRobin sur les différentes instances d'un seul
+data center. Cela tombe bien, car comme nous l'avons vu grace à la commande `nodetool status`, nous n'avons qu'un seul
+datacenter : "datacenter1" => notre poste :)
+A cela, nous avons configuré ligne 7 plusieurs noeuds d'accès au driver. Grâce à ces deux configurations, si le driver n'arrive
+pas à accéder à l'un des noeuds, il essaira les autres noeuds du même datacenter.
+
+
+## Conclusion
+
+Le workshop est terminé, vous pouvez executer la commande `npm run db:stop` pour laisser refroidir votre machine :)
+
+Nous esperons que ce workshop vous a plus et qu'il vous a permis de vous familiariser avec la base de données Cassandra.
+
+N'hésitez pas à le partager :
+<iframe
+  src="https://platform.twitter.com/widgets/tweet_button.html?size=l&url=https%3A%2F%2Fdev.twitter.com%2Fweb%2Ftweet-button&via=twitterdev&related=twitterapi%2Ctwitter&text=custom%20share%20text&hashtags=example%2Cdemo"
+  width="140"
+  height="28"
+  title="Twitter Tweet Button"
+  style="border: 0; overflow: hidden;">
+</iframe>

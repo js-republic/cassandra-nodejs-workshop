@@ -1,14 +1,12 @@
 Workshop NodeJS & Cassandra Database
 ===
 
-[Reste à faire !](./todo.md)
-
 Le but de ce Workshop (scéance de traveaux pratiques) est de permettre à des participants 
 avec un minimum de connaissance en développement JavaScript et en base de données d'apprendre
 ce qu'est la base de données Cassandra, comment l'utiliser seule et avec NodeJS.
 
 Le workshop commence par une introduction des animateurs à ce qu'est Cassandra, comment elle fonctionne et ses différences par rapport à d'autres types de base données.
-Cette présentation dura environ 15 min et sera suivie de mises en pratique alternée avec des explications.
+Cette présentation dura environ 15 min et sera suivie de mises en pratique alternées avec des explications.
 
 Rassurez-vous, nous commençons avec les premiers pas pour finir avec des cas plus avancés et les animateurs restent disponibles pour vous accompagner.
 
@@ -59,11 +57,11 @@ npm run db:start
 ```
 
 Cette opération prend de 3 à 5 min. En effet, le démarrage d'un cluster cassandra 
-nécessite un petit moment et nous devons attendre que l'intégralité des trois 
+nécessite un petit moment et nous devons attendre que l'intégralité des deux 
 noeuds soient prêts séquentiellement.
 
 > Pour les utilisateurs de Windows, une erreur dévrait subvenir juste après le démarrage
-des trois noeuds, car le détecteur de démarrage du cluster n'a pour l'instant été développé 
+des deux noeuds, car le détecteur de démarrage du cluster n'a pour l'instant été développé 
 que pour Linux et Mac. Merci de bien vouloir exécuter à la main la commande `npm run db:init` pour
 insérer le dataset du workshop.
 
@@ -71,7 +69,7 @@ insérer le dataset du workshop.
 # Structure du projet
 
 - **/infra**: Contient les fichiers dockers et shell nécessaires au démarrage du cluster cassandra. Vous y retrouverez aussi le dataset de données dans le fichier `dataset.cql`
-- **/src**: Contient les sources JavaScript du projet utilisé pour communiquer avec la base de données.
+- **/src**: Contient les sources JavaScript du projet utilisés pour communiquer avec la base de données.
 - **package.json** & **package-lock.json** : Habituels fichiers de définition des dépendances.
 
     
@@ -179,6 +177,16 @@ Grâce à la documentation ci-dessous, faite une requête permettant de lire tou
 <pre>
 SELECT * FROM workshop.characters;
 </pre>
+<pre>
+ id                                   | allegiance                  | house     | name
+--------------------------------------+-----------------------------+-----------+-----------------------
+ a6e8f2de-45d0-46b8-a185-03a58115d5c1 |                       Stark |     Stark |         Catelyn Stark
+ b99aff27-1e02-49b9-9bf9-050327973c14 |                       Stark |     Stark |            Robb Stark
+ d93aaa6c-5b8c-417e-a277-41275165ffcb |                             |           |                 Hodor
+ 047199db-b7be-4fa7-affc-e2df3fa9d683 |                             |           |                 Gilly
+ 4a843700-930d-4b8a-aad0-0500e79d90cb |                             |           |         Rodrik Cassel
+ 394e64dd-45a8-48a0-8fb6-9830fdbf6cf3 |                   Baratheon | Baratheon |     Shireen Baratheon
+</pre>
 </p>
 </details>
 
@@ -200,9 +208,9 @@ INSERT INTO workshop.characters (id, name, house, allegiance) VALUES (uuid(), 'J
 
 ---
 
-Dans l'application que nous allons compléter par la suite, nous allons requêter
-pour connaitre les personnages d'un maison. Cette information, stockée dans la 
-colone `house` est donc une parfaite candidate à la pose d'un index.
+Vous l'aurez compris maintenant, notre table liste tous les personnes de la série Game Of Thrones. Un usage assez 
+évident pour être de demander tous les personnages d'une maison. Cette information, stockée dans la 
+colone `house` est donc une parfaite candidate à la pose d'un index pour accélérer ce type de requête.
 <https://docs.datastax.com/en/cql/3.1/cql/ddl/ddl_when_use_index_c.html>
 <https://docs.datastax.com/en/cql/3.3/cql/cql_reference/cqlCreateIndex.html>
 
@@ -239,7 +247,7 @@ src
 └── index.js                            <- Fichier d'entrée à l'application Express
 ```
 
-Le but est de vous rendre à l'aise avec le driver Cassandra et implémenter les différentes requêtes sur la base de données 
+Le but est de vous familiariser avec le driver Cassandra et implémenter les différentes requêtes sur la base de données 
 que nous avons déjà préparée.
 
 Lancer donc la commande :
@@ -247,10 +255,10 @@ Lancer donc la commande :
 npm test
 ```
 
-Et laissez vous guider par les tests unitaires implémentés dans `character.da.spec.js` 
-en remplissant les fonctions du fichier `character.da.js`.
+Laissez vous guider par les tests unitaires implémentés dans `character.da.spec.js` 
+et remplissez les fonctions du fichier `character.da.js`.
 
-Pour vous aider dans votre tâche, vous pouvez jeter un oeil à la doc :
+Pour vous aider dans votre tâche, vous pouvez jeter un oeil à la doc du driver Cassandra for NodeJS :
 <https://github.com/datastax/nodejs-driver>
 
 TDD style, guys!
@@ -323,14 +331,14 @@ npm run db:add:node
 Celle-ci lance le fichier `infra/add-new-node.js` qui lui même lance une commande docker pour ajouter un noeud en lui précisant
 quel est le noeud `seed` du cluster (l'instance docker `cassandra-db` dans notre cas).
 
-Le(s) `seed(s)` sont une liste de machine responsable d'introniser les noeuds dans un cluster. C'est à lui/eux que viendront s'addresser chaque noeuds
+Le(s) `seed(s)` sont une liste de noeud responsable d'introniser les nouveaux noeuds dans un cluster. C'est à lui/eux que viendront s'addresser chaque noeuds
 désireux de rejoindre le cluster. Il faut donc au minimum un `seed` par cluster (notre cas) mais on peut en avoir beaucoup plus, il ne faut pas pour autant que tous les noeuds du cluster soient des `seed`.
 
 Pour en savoir plus :
 
 <https://docs.datastax.com/en/cassandra/2.1/cassandra/architecture/architectureGossipAbout_c.html>
 
-### Et ça marche si on tu un noeud
+### Et ça marche si on tu un noeud ?
 
 Cassandra est une base de données, particulièrement résistante à la panne. Pour vous le démontrer nous allons nous amuser
 à tuer un noeud et pas n'importe lequel puisse que nous allons tué le `seed`. Cela démontra que le seed n'est vraiment
@@ -342,7 +350,7 @@ npm start
 ```
 
 Rendez-vous à l'adresse : `http://localhost:3000/character`
-Et vous verrez la liste des `characters` retourné par la base au travers du serveur NodeJS.
+Et vous verrez la liste des `characters` retournés par la base au travers du serveur NodeJS.
 
 Tuer maintenant le seed :
 
@@ -356,14 +364,14 @@ Et rafraichissez votre page. Le résultat est toujours disponible !
 
 La première raison pour laquelle cela continu à fonctionner est d'abord le taux de replication. En effet, si vous regardez 
 la première ligne du fichier `infra/dataset.cql` vous verrez ceci :
-```bash
+```sql
 CREATE KEYSPACE workshop WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 2 };
 ```
 
-Si vous prêtez attention à la fin de la ligne, vous verrez que le taux de replication est positionner à deux. Cela signifie 
-que Cassandra va copier la deux données dans deux noeuds différents (Dans notre cas sur `cassandra-db` et `cassandra-db-1`)
+Si vous prêtez attention à la fin de la ligne, vous verrez que le taux de replication est positionné à deux. Cela signifie 
+que Cassandra va copier la données dans deux noeuds différents (Dans notre cas sur `cassandra-db` et `cassandra-db-1`)
 
-La deuxième raison pour laquelle cela fonctionne est notre stratégie de load balancing configuré dans le driver Cassandra pour NodeJS.
+La deuxième raison pour laquelle cela fonctionne est notre stratégie de load balancing configurée dans le driver Cassandra pour NodeJS.
 Rendez-vous maintenant dans le fichier `src/character/database/cassandra-client-database.js` pour comprendre :
 ```ecmascript 6
 const {Client, policies} = require('cassandra-driver');
@@ -386,6 +394,9 @@ data center. Cela tombe bien, car comme nous l'avons vu grace à la commande `no
 datacenter : "datacenter1" => notre poste :)
 A cela, nous avons configuré ligne 7 plusieurs noeuds d'accès au driver. Grâce à ces deux configurations, si le driver n'arrive
 pas à accéder à l'un des noeuds, il essaira les autres noeuds du même datacenter.
+
+Pour en savoir plus si les différentes stratégie de load balancing offertes par le driver :
+<https://docs.datastax.com/en/developer/nodejs-driver/3.4/features/tuning-policies/#load-balancing-policy>
 
 
 ## Conclusion

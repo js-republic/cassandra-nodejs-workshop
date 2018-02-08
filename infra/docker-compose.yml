@@ -25,15 +25,15 @@ services:
     command: /bin/bash -c "/wait-for-cassandra-node.sh cassandra-db && /docker-entrypoint.sh cassandra -f"
     mem_limit: 2G
 
-  cassandra-db-2:
-    build: .
-    container_name: cassandra-db-2
-    links:
-      - cassandra-db:seed
-    ports:
-      - 9242:9042
-      - 7000
-    environment:
-      - CASSANDRA_SEEDS=seed
-    command: /bin/bash -c "/wait-for-cassandra-node.sh cassandra-db-1 && /docker-entrypoint.sh cassandra -f"
-    mem_limit: 2G
+#  cassandra-db-2:
+#    build: .
+#    container_name: cassandra-db-2
+#    links:
+#      - cassandra-db:seed
+#    ports:
+#      - 9242:9042
+#      - 7000
+#    environment:
+#      - CASSANDRA_SEEDS=seed
+#    command: /bin/bash -c "/wait-for-cassandra-node.sh cassandra-db-1 && /docker-entrypoint.sh cassandra -f"
+#    mem_limit: 2G

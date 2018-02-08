@@ -1,4 +1,4 @@
-CREATE KEYSPACE workshop WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1 };
+CREATE KEYSPACE workshop WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 2 };
 CREATE TABLE workshop.characters(id uuid PRIMARY KEY,  name text, house text, allegiance text);
 INSERT INTO workshop.characters (id, name, house, allegiance) VALUES (uuid(), 'Ned Stark', 'Stark', 'Stark');
 INSERT INTO workshop.characters (id, name, house, allegiance) VALUES (uuid(), 'Robert Baratheon', 'Baratheon', 'Baratheon');

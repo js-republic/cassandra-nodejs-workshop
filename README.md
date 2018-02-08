@@ -55,7 +55,7 @@ npm install
 
 Lancer la base de données :
 ```bash
-npm run start:db
+npm run db:start
 ```
 
 Cette opération prend de 3 à 5 min. En effet, le démarrage d'un cluster cassandra 
@@ -64,7 +64,7 @@ noeuds soient prêts séquentiellement.
 
 > Pour les utilisateurs de Windows, une erreur dévrait subvenir juste après le démarrage
 des trois noeuds, car le détecteur de démarrage du cluster n'a pour l'instant été développé 
-que pour Linux et Mac. Merci de bien vouloir exécuter à la main la commande `npm run start:workshop` pour
+que pour Linux et Mac. Merci de bien vouloir exécuter à la main la commande `npm run db:init` pour
 insérer le dataset du workshop.
 
 
@@ -97,13 +97,12 @@ Datacenter: datacenter1
 Status=Up/Down
 |/ State=Normal/Leaving/Joining/Moving
 --  Address     Load       Tokens       Owns (effective)  Host ID                               Rack
-UN  172.18.0.2  80.2 KiB   256          35.8%             08c3c767-ad6c-4ce9-80eb-5b8ff1bc63d6  rack1
-UN  172.18.0.3  101.23 KiB  256          32.0%             1732b9df-9464-4e20-8389-5d2acc10bdcc  rack1
-UN  172.18.0.4  110 KiB    256          32.2%             56ce68c0-de55-4686-8d98-1cf65303d341  rack1
+UN  172.18.0.2  80.2 KiB   256          50.0%             08c3c767-ad6c-4ce9-80eb-5b8ff1bc63d6  rack1
+UN  172.18.0.3  101.23 KiB  256          50.0%             1732b9df-9464-4e20-8389-5d2acc10bdcc  rack1
 </pre>
 
 Comme vous pouvez le voir, nous vous avons préparé pour le workshop un cluster cassandra composé de trois noeuds, respectivement
-identifiés par 172.18.0.2 (instance docker "cassandra-db"), 172.18.0.3 (instance docker "cassandra-db-1") et  172.18.0.4 (instance docker "cassandra-db-2").
+identifiés par 172.18.0.2 (instance docker "cassandra-db") et 172.18.0.3 (instance docker "cassandra-db-1").
 Les ips peuvent être différentes en fonction des machines, mais cela n'a pas d'importance
 </p>
 </details>
@@ -311,4 +310,23 @@ module.exports = {
 
 ## Replication, résiliance, allons plus loin !
 
-@Mathieu
+Notre "cluster" Cassandra n'est pour l'instant constitué que de deux noeuds. Vous en conviendrez, cela est compliqué
+ de continuer à l'appeler "cluster" avec si peu d'instance.
+ 
+Nous allons donc plus loin dans notre utilisation de Cassandra en ajoutant un nouveau noeud au cluster. Pour ce faire, faite
+appel à la commande :
+
+```bash
+npm run db:ad:node
+```
+
+Celle-ci lance le fichier `infra/add-new-node.js` qui lui même lance une commande docker pour ajouter un noeud en lui précisant
+quel est le ou les noeuds `seed` du cluster.
+
+Le(s) `seed(s)` sont une liste de machine responsable d'introniser les noeuds dans un cluster. C'est à lui/eux que viendront s'addresser chaque noeuds
+désireux de rejointre le cluster. Il faut donc au minimum un `seed` par cluster (notre cas) mais on peut en avoir beaucoup plus, il ne faut pas pour autant que tous les noeuds du cluster soient des `seed`.
+
+Pour en savoir plus :
+
+<https://docs.datastax.com/en/cassandra/2.1/cassandra/architecture/architectureGossipAbout_c.html>
+

@@ -406,10 +406,4 @@ Le workshop est terminé, vous pouvez executer la commande `npm run db:stop` pou
 Nous esperons que ce workshop vous a plus et qu'il vous a permis de vous familiariser avec la base de données Cassandra.
 
 N'hésitez pas à le partager :
-<iframe
-  src="https://platform.twitter.com/widgets/tweet_button.html?size=l&url=https%3A%2F%2Fdev.twitter.com%2Fweb%2Ftweet-button&via=twitterdev&related=twitterapi%2Ctwitter&text=custom%20share%20text&hashtags=example%2Cdemo"
-  width="140"
-  height="28"
-  title="Twitter Tweet Button"
-  style="border: 0; overflow: hidden;">
-</iframe>
+<a href="https://twitter.com/home?status=Venez%20jeter%20un%20oeil%20%C3%A0%20ce%20Workshop%20%40cassandra%20%26%20%23nodejs%20fait%20par%20la%20team%20%40jsrepublic%20https%3A//github.com/js-republic/cassandra-nodejs-workshop">Share on Twitter</a>

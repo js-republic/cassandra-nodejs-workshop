@@ -373,7 +373,7 @@ que Cassandra va copier la données dans deux noeuds différents (Dans notre cas
 
 La deuxième raison pour laquelle cela fonctionne est notre stratégie de load balancing configurée dans le driver Cassandra pour NodeJS.
 Rendez-vous maintenant dans le fichier `src/character/database/cassandra-client-database.js` pour comprendre :
-```ecmascript 6
+```javascript
 const {Client, policies} = require('cassandra-driver');
 
 const localDatacenter = 'datacenter1';

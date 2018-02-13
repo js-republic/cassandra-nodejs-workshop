@@ -1,7 +1,7 @@
 Workshop NodeJS & Cassandra Database
 ===
 
-Le but de ce Workshop (scéance de traveaux pratiques) est de permettre à des participants 
+Le but de ce Workshop (séance de traveaux pratiques) est de permettre à des participants 
 avec un minimum de connaissance en développement JavaScript et en base de données d'apprendre
 ce qu'est la base de données Cassandra, comment l'utiliser seule et avec NodeJS.
 

@@ -2,7 +2,7 @@ version: "2.2"
 
 services:
   cassandra-db:
-    build: .
+    build: cassandra-node
     container_name: cassandra-db
     ports :
       - 7000:7000
@@ -10,30 +10,22 @@ services:
       - 7199:7199
       - 9042:9042
       - 9160:9160
+    environment:
+      - CASSANDRA_DC=DC1
+      - CASSANDRA_NODE_TO_WAIT=cassandra-db
+    volumes:
+      - ./datasets:/datasets
     mem_limit: 2G
 
   cassandra-db-1:
-    build: .
+    build: cassandra-node
     container_name: cassandra-db-1
     links:
       - cassandra-db:seed
     ports:
       - 9142:9042
-      - 7000
     environment:
       - CASSANDRA_SEEDS=seed
-    command: /bin/bash -c "/wait-for-cassandra-node.sh cassandra-db && /docker-entrypoint.sh cassandra -f"
+      - CASSANDRA_DC=DC2
+      - CASSANDRA_NODE_TO_WAIT=cassandra-db
     mem_limit: 2G
-
-#  cassandra-db-2:
-#    build: .
-#    container_name: cassandra-db-2
-#    links:
-#      - cassandra-db:seed
-#    ports:
-#      - 9242:9042
-#      - 7000
-#    environment:
-#      - CASSANDRA_SEEDS=seed
-#    command: /bin/bash -c "/wait-for-cassandra-node.sh cassandra-db-1 && /docker-entrypoint.sh cassandra -f"
-#    mem_limit: 2G

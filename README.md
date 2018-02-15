@@ -8,6 +8,9 @@ ce qu'est la base de données Cassandra, comment l'utiliser seule et avec NodeJS
 Le workshop commence par une introduction des animateurs à ce qu'est Cassandra, comment elle fonctionne et ses différences par rapport à d'autres types de base données.
 Cette présentation dura environ 15 min et sera suivie de mises en pratique alternées avec des explications.
 
+Vous pouvez retrouver la présentation ici :
+<a href="./presentation/No-to-SQL-with-Cassandra.pdf" target="_blank">Click here</a>
+
 Rassurez-vous, nous commençons avec les premiers pas pour finir avec des cas plus avancés et les animateurs restent disponibles pour vous accompagner.
 
 Au total, ce workshop dure en moyenne 2h.
@@ -416,9 +419,6 @@ Pour en savoir plus si les différentes stratégie de load balancing offertes pa
 Le workshop est terminé, vous pouvez executer la commande `npm run db:stop` pour laisser refroidir votre machine :)
 
 Nous esperons que ce workshop vous a plus et qu'il vous a permis de vous familiariser avec la base de données Cassandra.
-
-Presentation :
-<a href="./presentation/No-to-SQL-with-Cassandra.pdf" target="_blank">Click here</a>
 
 
 N'hésitez pas à le partager :

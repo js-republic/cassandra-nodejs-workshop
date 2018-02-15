@@ -12,7 +12,19 @@ Rassurez-vous, nous commençons avec les premiers pas pour finir avec des cas pl
 
 Au total, ce workshop dure en moyenne 2h.
 
-# Pré-requis
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [Workshop NodeJS & Cassandra Database](#)
+- [Pré-requis](#)
+- [Installation & démarrage](#)
+- [Structure du projet](#)
+	- [Prise en main](#)
+	- [Passons au code !](#)
+	- [Replication, résiliance, allons plus loin !](#)
+		- [Et ça marche si on tu un noeud ?](#)
+	- [Conclusion](#)
+
+## Pré-requis
 
 Ce workshop nécessite pour être accomplie :
  - Un ordinateur ...
@@ -34,7 +46,7 @@ nous avons limité la consomation mémoire des noeuds à 2Go afin que cela reste
 un ordinateur classique.
   
 
-# Installation & démarrage
+## Installation & démarrage
 
 Une fois les pré-requis remplient, pour commencer le TP, il vous faut cloner ce repo sur votre machine :
 ```bash
@@ -66,14 +78,14 @@ que pour Linux et Mac. Merci de bien vouloir exécuter à la main la commande `n
 insérer le dataset du workshop.
 
 
-# Structure du projet
+## Structure du projet
 
 - **/infra**: Contient les fichiers dockers et shell nécessaires au démarrage du cluster cassandra. Vous y retrouverez aussi le dataset de données dans le fichier `dataset.cql`
 - **/src**: Contient les sources JavaScript du projet utilisés pour communiquer avec la base de données.
 - **package.json** & **package-lock.json** : Habituels fichiers de définition des dépendances.
 
     
-## Prise en main
+### Prise en main
 
 Pour commencer, nous vous invitons d'abord à vérifier si votre cluster est en bonne santé.
 Pour cela, connectez-vous au bash d'un des noeuds cassandra à l'aide de la commande docker suivante :
@@ -223,7 +235,7 @@ CREATE INDEX houses ON workshop.characters( house );
 </p>
 </details>
 
-## Passons au code !
+### Passons au code !
 
 Maintenant, que nous avons notre base de données Cassandra préparée avec nos personnages préférés (GoT ou pas), 
 il est temps de passer à la partie Node.JS de l'histoire. 
@@ -316,7 +328,7 @@ module.exports = {
 
 ---
 
-## Replication, résiliance, allons plus loin !
+### Replication, résiliance, allons plus loin !
 
 Notre "cluster" Cassandra n'est pour l'instant constitué que de deux noeuds. Vous en conviendrez, cela est compliqué
  de continuer à l'appeler "cluster" avec si peu d'instance.
@@ -338,7 +350,7 @@ Pour en savoir plus :
 
 <https://docs.datastax.com/en/cassandra/2.1/cassandra/architecture/architectureGossipAbout_c.html>
 
-### Et ça marche si on tu un noeud ?
+#### Et ça marche si on tu un noeud ?
 
 Cassandra est une base de données, particulièrement résistante à la panne. Pour vous le démontrer nous allons nous amuser
 à tuer un noeud et pas n'importe lequel puisse que nous allons tué le `seed`. Cela démontra que le seed n'est vraiment
@@ -383,7 +395,7 @@ module.exports = {
     contactPoints: ['127.0.0.1:9042', '127.0.0.1:9142'],
     keyspace: 'workshop',
     policies: {
-      loadBalancing: new policies.loadBalancing.DCAwareRoundRobinPolicy(localDatacenter)
+      loadBalancing: new policies.loadBalancing.DCAwareRoundRobinPolicy(localDatacenter, 1)
     }
   })
 };

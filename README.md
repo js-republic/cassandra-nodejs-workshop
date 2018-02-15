@@ -80,7 +80,7 @@ insérer le dataset du workshop.
 
 ## Structure du projet
 
-- **/infra**: Contient les fichiers dockers et shell nécessaires au démarrage du cluster cassandra. Vous y retrouverez aussi le dataset de données dans le fichier `dataset.cql`
+- **/infra**: Contient les fichiers dockers et shell nécessaires au démarrage du cluster cassandra. Vous y retrouverez aussi le dataset de données dans le fichier `init.cql`
 - **/src**: Contient les sources JavaScript du projet utilisés pour communiquer avec la base de données.
 - **package.json** & **package-lock.json** : Habituels fichiers de définition des dépendances.
 

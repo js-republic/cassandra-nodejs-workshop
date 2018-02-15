@@ -21,7 +21,7 @@ Au total, ce workshop dure en moyenne 2h.
 	- [Prise en main](#)
 	- [Passons au code !](#)
 	- [Replication, résiliance, allons plus loin !](#)
-		- [Et ça marche si on tu un noeud ?](#)
+		- [Et ça marche si on tue un noeud ?](#)
 	- [Conclusion](#)
 
 ## Pré-requis
@@ -350,7 +350,7 @@ Pour en savoir plus :
 
 <https://docs.datastax.com/en/cassandra/2.1/cassandra/architecture/architectureGossipAbout_c.html>
 
-#### Et ça marche si on tu un noeud ?
+#### Et ça marche si on tue un noeud ?
 
 Cassandra est une base de données, particulièrement résistante à la panne. Pour vous le démontrer nous allons nous amuser
 à tuer un noeud et pas n'importe lequel puisse que nous allons tué le `seed`. Cela démontra que le seed n'est vraiment

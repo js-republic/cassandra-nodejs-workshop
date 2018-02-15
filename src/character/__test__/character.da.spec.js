@@ -131,7 +131,8 @@ describe('CharacterDa', () => {
 
       promise.then(idNewCharacter => {
         // Then
-        expect(cassandraDriverMock.__query).toEqual(`INSERT INTO workshop.characters(id,name,house,allegiance) VALUES (${idNewCharacter},'John','Doe','Doe')`);
+        expect(cassandraDriverMock.__query).toEqual(`INSERT INTO workshop.characters(id,name,house,allegiance) VALUES ('1234-4567-8910-1112','John','Doe','Doe')`);
+        expect(idNewCharacter).toEqual('1234-4567-8910-1112');
         done();
       });
     });

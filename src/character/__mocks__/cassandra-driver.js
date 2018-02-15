@@ -18,6 +18,12 @@ cassandraDriver.Client = jest.fn(() => ({
   },
 }));
 
+cassandraDriver.types.TimeUuid = {
+  now (){
+    return '1234-4567-8910-1112';
+  }
+};
+
 function replaceParamByValue(values, query) {
   return values.reduce((acc, elem) => {
     return acc.split('')

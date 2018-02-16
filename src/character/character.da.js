@@ -26,7 +26,7 @@ module.exports = {
     const newId = types.TimeUuid.now();
     const params = [newId, characterToAdd.name, characterToAdd.house,characterToAdd.allegiance];
     return CassandraClient.execute(query, params).then(() => {
-      return newId.toString();
+      return newId;
     });
   },
 

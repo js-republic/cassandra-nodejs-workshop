@@ -15,6 +15,8 @@ Rassurez-vous, nous commençons avec les premiers pas pour finir avec des cas pl
 
 Au total, ce workshop dure en moyenne 2h.
 
+![Ecran lors de la réalisation du workshop](./docs/workshop-cassandra-node.gif)
+
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
 - [Workshop NodeJS & Cassandra Database](#)
